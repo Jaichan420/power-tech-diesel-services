@@ -190,7 +190,7 @@ function Services() {
 }
 
 function Industries() {
-  const icons = [Fuel, Factory, CalendarClock]
+  const icons = [Fuel, Factory, CalendarClock, ShieldCheck, Wrench]
   return (
     <section className="industries section-pad" id="industries">
       <div className="wrap">
@@ -391,12 +391,15 @@ function QuoteForm() {
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('')
+  const [statusType, setStatusType] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
     const applyPreset = (event) => {
       setForm(current => ({ ...current, ...event.detail }))
       setStatus('')
+      setStatusType('')
     }
     window.addEventListener('quote-preset', applyPreset)
     return () => window.removeEventListener('quote-preset', applyPreset)
@@ -407,6 +410,7 @@ function QuoteForm() {
     if (!preset) return
     setForm(current => ({ ...current, ...preset }))
     setStatus('')
+    setStatusType('')
     requestAnimationFrame(() => document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' }))
   }, [location.key, location.state])
 
@@ -414,10 +418,12 @@ function QuoteForm() {
     setForm(current => ({ ...current, [event.target.name]: event.target.value }))
     setErrors(current => ({ ...current, [event.target.name]: '' }))
     setStatus('')
+    setStatusType('')
   }
 
-  const submit = (event) => {
+  const submit = async (event) => {
     event.preventDefault()
+    if (isSubmitting) return
     const required = ['name', 'phone', 'businessType', 'service', 'location']
     const nextErrors = {}
     required.forEach(key => {
@@ -429,10 +435,7 @@ function QuoteForm() {
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length) {
       setStatus('Please review the highlighted fields and try again.')
-      return
-    }
-    if (!business.whatsapp.trim()) {
-      setStatus('The business WhatsApp number is not configured yet. Please contact the business directly once its contact details have been added.')
+      setStatusType('error')
       return
     }
 
@@ -449,12 +452,49 @@ function QuoteForm() {
       `Additional requirements: ${form.requirements || 'None provided'}`,
     ].join('\n')
     const waNumber = business.whatsapp.replace(/\D/g, '')
-    if (!waNumber) {
-      setStatus('The configured WhatsApp number is invalid. Please update it in src/config/business.js.')
-      return
+    if (waNumber) {
+      window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
     }
-    window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
-    setStatus('WhatsApp has opened with your enquiry. Review the message and press Send in WhatsApp to complete it.')
+
+    setIsSubmitting(true)
+    setStatus('Submitting your enquiry...')
+    setStatusType('loading')
+    try {
+      const response = await fetch('http://localhost:5000/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          phone: form.phone.trim(),
+          businessType: form.businessType,
+          service: form.service,
+          location: form.location.trim(),
+          company: form.company.trim(),
+          capacity: form.capacity.trim(),
+          message: form.requirements.trim(),
+        }),
+      })
+      let result
+      try {
+        result = await response.json()
+      } catch {
+        throw new Error('The backend returned an invalid response.')
+      }
+      if (!response.ok || !result.ok) {
+        throw new Error(result.message || `The server rejected the enquiry (HTTP ${response.status}).`)
+      }
+      const whatsappStatus = waNumber
+        ? ' WhatsApp has opened with a copy for you to review and send.'
+        : ' WhatsApp is not configured, but your enquiry was submitted.'
+      setStatus(`Enquiry submitted successfully.${whatsappStatus}`)
+      setStatusType('success')
+    } catch (error) {
+      const reason = error instanceof Error ? error.message : 'An unexpected error occurred.'
+      setStatus(`Could not submit your enquiry: ${reason} Please check that the local backend is running at http://localhost:5000 and try again.`)
+      setStatusType('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -473,9 +513,9 @@ function QuoteForm() {
             <Field label="Business location" name="location" value={form.location} onChange={update} error={errors.location} required placeholder="Area / locality in Chennai" />
             <label className="field field-wide"><span>Additional requirements</span><textarea name="requirements" value={form.requirements} onChange={update} rows="3" placeholder="Anything else we should know?" /></label>
           </div>
-          {status && <p className={`form-status${Object.keys(errors).length ? ' status-error' : ''}`} role="status">{status}</p>}
-          <button className="button button-navy submit-button" type="submit">Prepare WhatsApp Enquiry <MessageCircle size={17} /></button>
-          <p className="form-disclaimer">Your enquiry is not sent automatically. WhatsApp will open so you can review and send the message.</p>
+          {status && <p className={`form-status${statusType === 'error' ? ' status-error' : ''}`} role={statusType === 'error' ? 'alert' : 'status'} aria-live={statusType === 'error' ? 'assertive' : 'polite'}>{status}</p>}
+          <button className="button button-navy submit-button" type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>{isSubmitting ? 'Submitting Enquiry…' : 'Submit Enquiry'} <MessageCircle size={17} /></button>
+          <p className="form-disclaimer">Your enquiry is submitted to the local service API. If WhatsApp is configured, it also opens so you can review and send a copy.</p>
         </form></div>
       </div>
     </section>
@@ -522,7 +562,7 @@ export function Footer() {
           <span className="footer-contact">{business.address || 'Address: add in business configuration'}</span>
         </div>
         <div className="footer-group"><strong>Services</strong><Link to="/services">Generator Oil Servicing</Link><Link to="/services">Annual Maintenance Contract</Link><Link to="/services">Preventive Maintenance</Link><Link to="/services">Generator Inspection</Link></div>
-        <div className="footer-group"><strong>Industries served</strong><a href="#industries">Petrol Bunks</a><a href="#industries">Industries &amp; Factories</a><a href="#industries">Marriage Halls</a></div>
+        <div className="footer-group"><strong>Industries served</strong><a href="#industries">Petrol Bunks</a><a href="#industries">Industries &amp; Factories</a><a href="#industries">Marriage Halls</a><a href="#industries">Schools</a><a href="#industries">Hospitals</a></div>
         <div className="footer-group footer-quick"><strong>Quick navigation</strong>{navLinks.map(([label, id]) => <NavigationLink key={id} id={id} label={label} active={false} />)}<Link className="footer-quote" to="/#quote">Request a quote <ArrowRight size={15} /></Link></div>
       </div>
       <div className="wrap footer-bottom"><span>© {new Date().getFullYear()} {business.name}</span><span>{business.city}</span><Link to="/#home">Back to top ↑</Link></div>

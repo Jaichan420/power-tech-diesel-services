@@ -4,7 +4,7 @@ import { Footer, Navbar } from './App.jsx'
 import { detailedServices, serviceIndustries } from './config/business.js'
 
 const serviceIcons = { Droplets, CalendarClock, Wrench, Search }
-const industryIcons = [Fuel, Factory, CalendarClock]
+const industryIcons = [Fuel, Factory, CalendarClock, Search, Wrench]
 
 function ServiceCard({ service, index }) {
   const Icon = serviceIcons[service.icon]

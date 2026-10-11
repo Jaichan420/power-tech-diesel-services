@@ -1,8 +1,10 @@
 # Power Tech Diesel Services
 
-Responsive React and Vite website for Power Tech Diesel Services in Chennai. The site introduces generator oil servicing, planned maintenance, and AMC enquiries, with a quote form that prepares a customer-reviewed WhatsApp message.
+Responsive React and Vite website for Power Tech Diesel Services in Chennai. The site introduces generator oil servicing, planned maintenance, and AMC enquiries, with a quote form connected to a local Flask API and an optional customer-reviewed WhatsApp message.
 
 ## Run locally
+
+### Frontend
 
 1. Install Node.js (LTS) and npm.
 2. Open this folder in VS Code and open **Terminal > New Terminal**.
@@ -11,13 +13,22 @@ Responsive React and Vite website for Power Tech Diesel Services in Chennai. The
 
 Create a production build with `npm run build`; preview it using `npm run preview`.
 
+### Backend
+
+1. Open a second terminal in the project root.
+2. In the `backend` folder, install dependencies with `pip install -r requirements.txt`.
+3. Start the API with `python app.py` from the `backend` folder.
+4. The API will run on `http://localhost:5000`.
+
+The backend exposes a health endpoint at `/health` and a JSON quote-enquiry endpoint at `/api/enquiry`. The local API only allows browser requests from `http://localhost:5173`; enquiries are validated and returned to the caller but are not persisted.
+
 ## Business details
 
-Edit `src/config/business.js` to add the real WhatsApp number, phone number, email, and service area. Use the international country code and digits for `whatsapp`, without a `+` or spaces (for example, replace the empty value with the actual country code and number). No contact details are prefilled because they have not been provided. Until a valid WhatsApp number is configured, the quote form explains that the WhatsApp action is unavailable.
+Edit `src/config/business.js` to add the real WhatsApp number, phone number, email, and service area. Use the international country code and digits for `whatsapp`, without a `+` or spaces (for example, replace the empty value with the actual country code and number). No contact details are prefilled because they have not been provided. The API submission works without a WhatsApp number; the form notes that WhatsApp is not configured.
 
 ## Enquiry form test
 
-Submit the quote form empty to see required-field messages. Complete the required name, contact number, business type, service, and location fields to test validation. The form will then report that WhatsApp is not configured. After a real WhatsApp number is added, submit again: WhatsApp opens with the formatted enquiry for the customer to review and send. The site does not send the message or claim it has been sent automatically.
+Submit the quote form empty to see required-field messages. Complete the required name, contact number, business type, service, and location fields to test validation. With both local servers running, the form submits JSON to the Flask API and confirms success or displays an error. If a valid WhatsApp number is configured, WhatsApp also opens with the formatted enquiry for the customer to review and send. The site does not send the WhatsApp message automatically.
 
 ## Images
 

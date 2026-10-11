@@ -21,6 +21,8 @@ export const businessTypes = [
   'Petrol Bunk',
   'Industry/Factory',
   'Marriage Hall',
+  'School',
+  'Hospital',
   'Other',
 ]
 
@@ -117,6 +119,20 @@ export const industries = [
     alt: 'Event hall prepared for a function',
     type: 'Marriage Hall',
   },
+  {
+    title: 'Schools & Colleges',
+    description: 'Support consistent backup power planning for educational facilities and campus operations.',
+    image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=850&q=82',
+    alt: 'School campus building',
+    type: 'School',
+  },
+  {
+    title: 'Hospitals & Healthcare',
+    description: 'Schedule generator maintenance with the reliability needs of healthcare facilities in mind.',
+    image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=850&q=82',
+    alt: 'Modern hospital building',
+    type: 'Hospital',
+  },
 ]
 
 export const serviceIndustries = [
@@ -137,6 +153,18 @@ export const serviceIndustries = [
     description: 'Discuss generator maintenance planning ahead of functions and events.',
     image: industries[2].image,
     alt: industries[2].alt,
+  },
+  {
+    title: 'Schools and Educational Institutions',
+    description: 'Prepare generator care around the operational needs of schools and campuses.',
+    image: industries[3].image,
+    alt: industries[3].alt,
+  },
+  {
+    title: 'Hospitals and Healthcare Facilities',
+    description: 'Coordinate generator service plans suited to critical healthcare environments.',
+    image: industries[4].image,
+    alt: industries[4].alt,
   },
 ]
 
@@ -175,6 +203,32 @@ export const customerGroups = [
         logo: '',
         sitePhoto: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=82',
         alt: 'Placeholder site image for wedding venue customer',
+        showNameOnly: true,
+        permissionNote: 'Published only with permission.',
+      },
+    ],
+  },
+  {
+    category: 'Schools and Educational Institutions',
+    customers: [
+      {
+        name: 'Customer name placeholder',
+        logo: '',
+        sitePhoto: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=82',
+        alt: 'Placeholder site image for school customer',
+        showNameOnly: true,
+        permissionNote: 'Published only with permission.',
+      },
+    ],
+  },
+  {
+    category: 'Hospitals and Healthcare Facilities',
+    customers: [
+      {
+        name: 'Customer name placeholder',
+        logo: '',
+        sitePhoto: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=900&q=82',
+        alt: 'Placeholder site image for hospital customer',
         showNameOnly: true,
         permissionNote: 'Published only with permission.',
       },
