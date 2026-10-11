@@ -1,9 +1,21 @@
 from flask import Flask, jsonify, request
 
+import os
+from models import db, Enquiry
+
+
 app = Flask(__name__)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
+    "DATABASE_URL", "sqlite:///enquiries.db"
+)
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
 LOCAL_REACT_ORIGIN = 'http://localhost:5173'
-
-
 @app.after_request
 def add_local_development_cors(response):
     origin = request.headers.get('Origin')
@@ -72,11 +84,35 @@ def enquiry():
         'message': str(payload.get('message', payload.get('requirements', ''))).strip(),
     }
 
+    
+    new_enquiry = Enquiry(
+        name=enquiry_data['name'],
+        company=enquiry_data['company'],
+        phone=enquiry_data['phone'],
+        business_type=enquiry_data['businessType'],
+        service=enquiry_data['service'],
+        location=enquiry_data['location'],
+        capacity=enquiry_data['capacity'],
+        message=enquiry_data['message']
+    )
+
+    try:
+        db.session.add(new_enquiry)
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        app.logger.exception("Failed to save enquiry")
+        return jsonify({
+            'ok': False,
+            'message': 'Unable to save enquiry.'
+        }), 500
+
     return jsonify({
         'ok': True,
-        'message': 'Enquiry received successfully.',
-        'enquiry': enquiry_data,
-    })
+        'message': 'Enquiry saved successfully.',
+        'enquiryId': new_enquiry.id
+    }), 201
+
 
 
 if __name__ == '__main__':

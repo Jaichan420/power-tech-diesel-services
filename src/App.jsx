@@ -16,15 +16,19 @@ import {
   Menu,
   Mail,
   MessageCircle,
+  Package,
+  PanelTop,
   Phone,
+  Search,
   ShieldCheck,
+  Volume2,
   Wrench,
   X,
   Zap,
 } from 'lucide-react'
-import { business, businessTypes, customerGroups, industries, serviceCards, serviceMaterials, serviceOptions } from './config/business.js'
+import { apiBaseUrl, business, businessTypes, customerGroups, engineBrands, generatorBrands, industries, serviceCards, serviceMaterials, serviceOptions } from './config/business.js'
 
-const iconMap = { Droplets, CalendarClock, Wrench }
+const iconMap = { Droplets, CalendarClock, Wrench, Search, Factory, Volume2, PanelTop, Package }
 const navLinks = [
   ['Home', 'home'],
   ['About Us', 'about'],
@@ -123,7 +127,7 @@ function Hero() {
           <h1>Reliable Power.<br /><span>Professional Generator Maintenance.</span></h1>
           <p className="hero-description">Generator oil servicing, Annual Maintenance Contracts, and planned maintenance for businesses across Chennai.</p>
           <div className="hero-actions">
-            <QuoteAction className="button button-navy" preset={{}}>Request a Quote <ArrowRight size={17} /></QuoteAction>
+            <QuoteAction className="button button-navy" preset={{}}>Request a Callback <ArrowRight size={17} /></QuoteAction>
             <Link className="button button-outline" to="/services">Explore Our Services <ArrowRight size={17} /></Link>
           </div>
           <div className="hero-note"><MapPin size={15} /><span>Chennai, Tamil Nadu</span><span className="note-divider" /><span>Oil servicing · AMC · Maintenance</span></div>
@@ -157,10 +161,10 @@ function About() {
         <div className="about-copy reveal">
           <p className="eyebrow"><span /> ABOUT POWER TECH</p>
           <h2>Trusted Generator Service Since 2014</h2>
-          <p>Power Tech Diesel Services has been supporting businesses with generator oil servicing, general generator maintenance, and Annual Maintenance Contracts (AMC) since 2014.</p>
-          <p>We work with facility owners and operators to discuss generator care needs based on service requirements, operating conditions, and the type of business involved.</p>
+          <p>Operating since 2014, Power Tech Diesel Services specializes in servicing and maintaining heavy-duty diesel generator sets for businesses and industries.</p>
+          <p>Our experience includes generator maintenance and troubleshooting, engine repairs and overhauling, and spare parts support. We discuss each requirement around the generator model and the customer’s needs.</p>
           <Link className="text-link" to="/services">Discover our services <ArrowRight size={16} /></Link>
-          <div className="about-points"><div><Check size={15} /> Service-focused approach</div><div><Check size={15} /> Chennai-based business</div></div>
+          <div className="about-points"><div><Check size={15} /> Generator maintenance & troubleshooting</div><div><Check size={15} /> Engine repairs & spare parts support</div></div>
         </div>
       </div>
     </section>
@@ -171,7 +175,7 @@ function Services() {
   return (
     <section className="services section-pad" id="services">
       <div className="wrap">
-        <SectionHeading kicker="WHAT WE DO" title={<>Generator services for<br />the work that matters.</>} description="Choose a service to discuss your generator's requirements with our team." />
+        <SectionHeading kicker="WHAT WE DO" title={<>Generator services for<br />the work that matters.</>} description="From routine maintenance to repairs and parts support, choose a service to discuss your generator’s requirements." />
         <div className="service-grid">
           {serviceCards.map((service, index) => {
             const Icon = iconMap[service.icon]
@@ -184,6 +188,29 @@ function Services() {
           })}
         </div>
         <p className="service-disclaimer">Service scope is confirmed after understanding your generator and facility requirements.</p>
+      </div>
+    </section>
+  )
+}
+
+function BrandsSection() {
+  return (
+    <section className="brands-section section-pad" id="generator-brands">
+      <div className="wrap">
+        <SectionHeading
+          kicker="ENGINE EXPERIENCE"
+          title={<>Experienced in Servicing Leading<br />Diesel Generator Engines</>}
+          description="We provide maintenance, troubleshooting, repair, and servicing for these generator engine brands. Brand names are listed for service reference only; no manufacturer authorization or affiliation is implied."
+        />
+        <div className="brand-grid">
+          {engineBrands.map((brand, index) => (
+            <article className="brand-card reveal" key={brand}>
+              <span className="brand-card-index">0{index + 1}</span>
+              <span className="brand-card-name">{brand}</span>
+              <span className="brand-card-caption">Diesel generator engines</span>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -257,47 +284,47 @@ function WhyChooseUs() {
 function WorkGallery() {
   const workItems = [
     {
-      title: 'Oil Servicing',
+      title: 'Generator Maintenance',
       image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=900&q=82',
-      alt: 'Generator oil servicing technician checking engine components',
+      alt: 'Technician checking generator engine components',
       points: [
-        'Generator engine oil servicing and oil replacement.',
-        'Oil filter inspection and replacement where required.',
-        'Routine checks during oil servicing.',
+        'Routine inspection and maintenance.',
+        'Oil changes and filter replacement.',
+        'Maintenance planned around the generator model.',
       ],
-      buttonLabel: 'Request a Quote',
-      service: 'Generator Oil Servicing',
+      buttonLabel: 'Request a Callback',
+      service: 'Diesel Generator Servicing',
     },
     {
-      title: 'General Service',
+      title: 'Troubleshooting & Engine Repairs',
       image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=900&q=82',
-      alt: 'Technician performing general generator inspection and maintenance',
+      alt: 'Technician inspecting industrial equipment',
       points: [
-        'General generator inspection and maintenance.',
-        'Checking visible leaks, unusual noise, and operating condition.',
-        'Inspection of relevant generator components.',
+        'Troubleshooting generator and engine problems.',
+        'Engine repair and overhauling support.',
+        'Requirements assessed for the specific generator.',
       ],
-      buttonLabel: 'Request a Quote',
-      service: 'General Service',
+      buttonLabel: 'Request a Callback',
+      service: 'Generator Repairs',
     },
     {
-      title: 'Annual Maintenance Contract (AMC)',
+      title: 'Spare Parts Support',
       image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=82',
-      alt: 'Generator maintenance contract technician reviewing service schedule',
+      alt: 'Maintenance materials and equipment',
       points: [
-        'Scheduled preventive maintenance according to the agreed contract.',
-        'Planned servicing and maintenance follow-ups.',
-        'Monitoring generator condition and identifying maintenance requirements.',
+        'Support for applicable generator engine spare parts.',
+        'Engine oil, filters, and coolant where applicable.',
+        'Availability and compatibility depend on generator model.',
       ],
-      buttonLabel: 'Request a Quote',
-      service: 'Annual Maintenance Contract (AMC)',
+      buttonLabel: 'Request a Callback',
+      service: 'Genuine & Imported Spare Parts',
     },
   ]
 
   return (
     <section className="work section-pad" id="work">
       <div className="wrap">
-        <SectionHeading kicker="GENERATOR SERVICES" title={<>Our Services</>} description="Professional generator servicing and maintenance support for businesses in Chennai." />
+        <SectionHeading kicker="SERVICE EXPERTISE" title={<>Our Generator Service Approach</>} description="From planned maintenance to troubleshooting and spare parts support, discuss your generator requirements with our team." />
         <div className="service-showcase-grid">
           {workItems.map(({ title, image, alt, points, buttonLabel, service }) => (
             <article className="service-showcase-card reveal" key={title}>
@@ -366,7 +393,7 @@ function MaterialsSection() {
   return (
     <section className="materials section-pad" id="materials">
       <div className="wrap">
-        <SectionHeading kicker="MATERIALS USED" title={<>Materials Used in Generator Servicing</>} description="Update this list with the real products, brands, and specifications used by your team during generator servicing and maintenance." />
+        <SectionHeading kicker="PARTS & MATERIALS" title={<>Diesel Generator Spare Parts &amp;<br />Maintenance Materials</>} description="Support includes engine oil, filters, coolant where applicable, and generator engine spare parts." />
         <div className="materials-grid">
           {serviceMaterials.map(material => (
             <article className="material-card reveal" key={material.name}>
@@ -380,12 +407,13 @@ function MaterialsSection() {
             </article>
           ))}
         </div>
+        <p className="materials-disclaimer">Spare parts availability and compatibility depend on the generator model.</p>
       </div>
     </section>
   )
 }
 
-const initialForm = { name: '', company: '', phone: '', businessType: '', capacity: '', service: '', location: '', requirements: '' }
+const initialForm = { name: '', company: '', phone: '', businessType: '', capacity: '', generatorBrand: '', service: '', location: '', requirements: '' }
 
 function QuoteForm() {
   const [form, setForm] = useState(initialForm)
@@ -421,6 +449,22 @@ function QuoteForm() {
     setStatusType('')
   }
 
+  const whatsappMessage = [
+    `Hello ${business.name}, I would like to request a callback about generator service.`,
+    '',
+    `Customer name: ${form.name || 'Not provided'}`,
+    `Company / business: ${form.company || 'Not provided'}`,
+    `Contact number: ${form.phone || 'Not provided'}`,
+    `Business type: ${form.businessType || 'Not provided'}`,
+    `Generator brand: ${form.generatorBrand || 'Not sure / not provided'}`,
+    `Generator capacity: ${form.capacity ? `${form.capacity} kVA` : 'Not provided'}`,
+    `Service required: ${form.service || 'Not provided'}`,
+    `Business location: ${form.location || 'Not provided'}`,
+    `Additional message: ${form.requirements || 'None provided'}`,
+  ].join('\n')
+  const whatsappNumber = business.whatsapp.replace(/\D/g, '')
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
+
   const submit = async (event) => {
     event.preventDefault()
     if (isSubmitting) return
@@ -439,28 +483,11 @@ function QuoteForm() {
       return
     }
 
-    const message = [
-      `Hello ${business.name}, I would like to enquire about generator service.`,
-      '',
-      `Customer name: ${form.name}`,
-      `Company / business: ${form.company || 'Not provided'}`,
-      `Contact number: ${form.phone}`,
-      `Business type: ${form.businessType}`,
-      `Generator capacity: ${form.capacity ? `${form.capacity} kVA` : 'Not provided'}`,
-      `Service required: ${form.service}`,
-      `Business location: ${form.location}`,
-      `Additional requirements: ${form.requirements || 'None provided'}`,
-    ].join('\n')
-    const waNumber = business.whatsapp.replace(/\D/g, '')
-    if (waNumber) {
-      window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
-    }
-
     setIsSubmitting(true)
     setStatus('Submitting your enquiry...')
     setStatusType('loading')
     try {
-      const response = await fetch('http://localhost:5000/api/enquiry', {
+      const response = await fetch(`${apiBaseUrl}/api/enquiry`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -471,7 +498,10 @@ function QuoteForm() {
           location: form.location.trim(),
           company: form.company.trim(),
           capacity: form.capacity.trim(),
-          message: form.requirements.trim(),
+          message: [
+            form.generatorBrand && `Generator brand: ${form.generatorBrand}`,
+            form.requirements.trim() && `Customer message: ${form.requirements.trim()}`,
+          ].filter(Boolean).join('\n'),
         }),
       })
       let result
@@ -480,17 +510,14 @@ function QuoteForm() {
       } catch {
         throw new Error('The backend returned an invalid response.')
       }
-      if (!response.ok || !result.ok) {
-        throw new Error(result.message || `The server rejected the enquiry (HTTP ${response.status}).`)
+      if (!response.ok || result?.ok !== true) {
+        throw new Error(result?.message || `The server rejected the enquiry (HTTP ${response.status}).`)
       }
-      const whatsappStatus = waNumber
-        ? ' WhatsApp has opened with a copy for you to review and send.'
-        : ' WhatsApp is not configured, but your enquiry was submitted.'
-      setStatus(`Enquiry submitted successfully.${whatsappStatus}`)
+      setStatus('Your callback request has been saved. Power Tech Diesel Services may contact you about your enquiry using the details provided.')
       setStatusType('success')
     } catch (error) {
       const reason = error instanceof Error ? error.message : 'An unexpected error occurred.'
-      setStatus(`Could not submit your enquiry: ${reason} Please check that the local backend is running at http://localhost:5000 and try again.`)
+      setStatus(`Could not submit your enquiry: ${reason} Please check that the local backend is running at ${apiBaseUrl} and try again.`)
       setStatusType('error')
     } finally {
       setIsSubmitting(false)
@@ -500,22 +527,24 @@ function QuoteForm() {
   return (
     <section className="quote section-pad" id="quote">
       <div className="wrap quote-grid">
-        <div className="quote-aside reveal"><p className="eyebrow eyebrow-light"><span /> REQUEST A QUOTE</p><h2>Tell us what your generator needs.</h2><p>Share a few details about your business and service requirement. We’ll prepare an enquiry for you to review in WhatsApp.</p><div className="quote-step"><span>01</span><div><strong>Share your requirements</strong><small>Tell us about your business and generator.</small></div></div><div className="quote-step"><span>02</span><div><strong>Review in WhatsApp</strong><small>Your message opens for you to review and send.</small></div></div><div className="quote-aside-contact"><MapPin size={16} /><span>{business.serviceArea}</span></div></div>
+        <div className="quote-aside reveal"><p className="eyebrow eyebrow-light"><span /> REQUEST A CALLBACK</p><h2>Tell us what your generator needs.</h2><p>Share a few details about your business and service requirement. We’ll contact you about your enquiry.</p><div className="quote-step"><span>01</span><div><strong>Share your requirements</strong><small>Tell us about your business and generator.</small></div></div><div className="quote-step"><span>02</span><div><strong>We’ll contact you</strong><small>Power Tech Diesel Services will follow up about your enquiry.</small></div></div><div className="quote-aside-contact"><MapPin size={16} /><span>{business.serviceArea}</span></div></div>
         <div className="quote-form-wrap reveal"><form className="quote-form" onSubmit={submit} noValidate>
-          <div className="form-heading"><div><span className="form-kicker">SERVICE ENQUIRY</span><h3>Request a quote</h3></div><span className="form-required">* Required</span></div>
+          <div className="form-heading"><div><span className="form-kicker">SERVICE ENQUIRY</span><h3>Request a Callback</h3></div><span className="form-required">* Required</span></div>
           <div className="form-grid">
             <Field label="Customer name" name="name" value={form.name} onChange={update} error={errors.name} required placeholder="Your name" />
             <Field label="Company or business name" name="company" value={form.company} onChange={update} placeholder="Business name" />
             <Field label="WhatsApp / contact number" name="phone" type="tel" value={form.phone} onChange={update} error={errors.phone} required placeholder="Your contact number" />
             <SelectField label="Business type" name="businessType" value={form.businessType} onChange={update} error={errors.businessType} required options={businessTypes} />
             <Field label="Generator capacity (kVA)" name="capacity" type="number" min="1" value={form.capacity} onChange={update} placeholder="e.g. 125" />
+            <SelectField label="Generator brand (optional)" name="generatorBrand" value={form.generatorBrand} onChange={update} options={generatorBrands} />
             <SelectField label="Service required" name="service" value={form.service} onChange={update} error={errors.service} required options={serviceOptions} />
             <Field label="Business location" name="location" value={form.location} onChange={update} error={errors.location} required placeholder="Area / locality in Chennai" />
-            <label className="field field-wide"><span>Additional requirements</span><textarea name="requirements" value={form.requirements} onChange={update} rows="3" placeholder="Anything else we should know?" /></label>
+            <label className="field field-wide"><span>Optional message</span><textarea name="requirements" value={form.requirements} onChange={update} rows="3" placeholder="Anything else we should know?" /></label>
           </div>
           {status && <p className={`form-status${statusType === 'error' ? ' status-error' : ''}`} role={statusType === 'error' ? 'alert' : 'status'} aria-live={statusType === 'error' ? 'assertive' : 'polite'}>{status}</p>}
-          <button className="button button-navy submit-button" type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>{isSubmitting ? 'Submitting Enquiry…' : 'Submit Enquiry'} <MessageCircle size={17} /></button>
-          <p className="form-disclaimer">Your enquiry is submitted to the local service API. If WhatsApp is configured, it also opens so you can review and send a copy.</p>
+          <button className="button button-navy submit-button" type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>{isSubmitting ? 'Submitting Request…' : 'Request a Callback'} <MessageCircle size={17} /></button>
+          <a className="button button-whatsapp submit-button" href={whatsappUrl} target="_blank" rel="noopener noreferrer">Enquire on WhatsApp <MessageCircle size={17} /></a>
+          <p className="form-disclaimer">By submitting this form, you allow Power Tech Diesel Services to contact you about your enquiry using the details provided. WhatsApp opens a draft for you to review and send yourself.</p>
         </form></div>
       </div>
     </section>
@@ -561,9 +590,9 @@ export function Footer() {
           <span className="footer-contact">{business.email || 'Email: add in business configuration'}</span>
           <span className="footer-contact">{business.address || 'Address: add in business configuration'}</span>
         </div>
-        <div className="footer-group"><strong>Services</strong><Link to="/services">Generator Oil Servicing</Link><Link to="/services">Annual Maintenance Contract</Link><Link to="/services">Preventive Maintenance</Link><Link to="/services">Generator Inspection</Link></div>
+        <div className="footer-group"><strong>Services</strong><Link to="/services">Diesel Generator Servicing</Link><Link to="/services">Engine Overhauling</Link><Link to="/services">Annual Maintenance Contracts</Link><Link to="/services">Spare Parts Support</Link></div>
         <div className="footer-group"><strong>Industries served</strong><a href="#industries">Petrol Bunks</a><a href="#industries">Industries &amp; Factories</a><a href="#industries">Marriage Halls</a><a href="#industries">Schools</a><a href="#industries">Hospitals</a></div>
-        <div className="footer-group footer-quick"><strong>Quick navigation</strong>{navLinks.map(([label, id]) => <NavigationLink key={id} id={id} label={label} active={false} />)}<Link className="footer-quote" to="/#quote">Request a quote <ArrowRight size={15} /></Link></div>
+        <div className="footer-group footer-quick"><strong>Quick navigation</strong>{navLinks.map(([label, id]) => <NavigationLink key={id} id={id} label={label} active={false} />)}<Link className="footer-quote" to="/#quote">Request a callback <ArrowRight size={15} /></Link></div>
       </div>
       <div className="wrap footer-bottom"><span>© {new Date().getFullYear()} {business.name}</span><span>{business.city}</span><Link to="/#home">Back to top ↑</Link></div>
     </footer>
@@ -575,18 +604,22 @@ function FinalCallToAction() {
     <section className="final-cta">
       <div className="wrap final-cta-inner">
         <div><p className="eyebrow eyebrow-light"><span /> POWER TECH DIESEL SERVICES · CHENNAI</p><h2>Plan your generator’s next service.</h2><p>Tell us about your facility and generator. We’ll help you start the right service conversation.</p></div>
-        <QuoteAction className="button button-light" preset={{}}>Request a Quote <ArrowRight size={16} /></QuoteAction>
+        <QuoteAction className="button button-light" preset={{}}>Request a Callback <ArrowRight size={16} /></QuoteAction>
       </div>
     </section>
   )
 }
 
 function WhatsAppButton() {
+  const whatsappNumber = business.whatsapp.replace(/\D/g, '')
+  const message = `Hello ${business.name}, I would like to enquire about generator service. Please contact me.`
+  const href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
+
   return (
-    <QuoteAction className="floating-whatsapp" preset={{}}>
+    <a className="floating-whatsapp" href={href} target="_blank" rel="noopener noreferrer">
       <MessageCircle size={22} />
       <span>Enquire on WhatsApp</span>
-    </QuoteAction>
+    </a>
   )
 }
 
@@ -604,5 +637,5 @@ export default function App() {
     return () => observer.disconnect()
   }, [])
 
-  return <><Navbar /><main><Hero /><About /><Services /><Industries /><ServiceProcess /><WhyChooseUs /><WorkGallery /><CustomerSection /><MaterialsSection /><QuoteForm /><Contact /><FinalCallToAction /></main><Footer /><WhatsAppButton /></>
+  return <><Navbar /><main><Hero /><About /><Services /><BrandsSection /><Industries /><ServiceProcess /><WhyChooseUs /><WorkGallery /><CustomerSection /><MaterialsSection /><QuoteForm /><Contact /><FinalCallToAction /></main><Footer /><WhatsAppButton /></>
 }

@@ -18,17 +18,19 @@ Create a production build with `npm run build`; preview it using `npm run previe
 1. Open a second terminal in the project root.
 2. In the `backend` folder, install dependencies with `pip install -r requirements.txt`.
 3. Start the API with `python app.py` from the `backend` folder.
-4. The API will run on `http://localhost:5000`.
+4. The API will run on `http://127.0.0.1:5000`.
 
-The backend exposes a health endpoint at `/health` and a JSON quote-enquiry endpoint at `/api/enquiry`. The local API only allows browser requests from `http://localhost:5173`; enquiries are validated and returned to the caller but are not persisted.
+The backend exposes a health endpoint at `/health` and a JSON callback-enquiry endpoint at `/api/enquiry`. The form uses `http://127.0.0.1:5000` by default. To use another API host in local development, set `VITE_API_BASE_URL` in a local `.env.local` file and restart Vite. The local API allows browser requests from `http://localhost:5173`.
 
 ## Business details
 
-Edit `src/config/business.js` to add the real WhatsApp number, phone number, email, and service area. Use the international country code and digits for `whatsapp`, without a `+` or spaces (for example, replace the empty value with the actual country code and number). No contact details are prefilled because they have not been provided. The API submission works without a WhatsApp number; the form notes that WhatsApp is not configured.
+Contact details, including the business WhatsApp number, phone, email, address, and service area, are configured in `src/config/business.js`. Use an international country code and digits for `whatsapp`, without a `+` or spaces. The enquiry draft opens addressed to the configured number.
 
 ## Enquiry form test
 
-Submit the quote form empty to see required-field messages. Complete the required name, contact number, business type, service, and location fields to test validation. With both local servers running, the form submits JSON to the Flask API and confirms success or displays an error. If a valid WhatsApp number is configured, WhatsApp also opens with the formatted enquiry for the customer to review and send. The site does not send the WhatsApp message automatically.
+With the Flask backend and Vite running, open the site at `http://localhost:5173` and submit the callback form empty to see required-field messages. Complete the required name, contact number, business type, service, and location fields; generator brand is optional. The form sends JSON to `/api/enquiry` and shows success only when the backend confirms the enquiry was saved; failed requests show an error. The optional generator brand is included in the saved message text for compatibility with the existing backend. The separate **Enquire on WhatsApp** button opens a prefilled draft, which the customer must review and manually send. Submitting the callback form does not send a WhatsApp message.
+
+The home page includes the serviced engine brands and maintenance materials. Brand names are provided for service reference only and do not imply manufacturer authorization or affiliation. Parts availability and compatibility depend on the generator model.
 
 ## Images
 

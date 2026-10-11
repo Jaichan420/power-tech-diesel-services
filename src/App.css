@@ -117,6 +117,14 @@ h1, h2, h3 { font-family: var(--display); letter-spacing: 0; }
 .service-link:hover svg { transform: translateX(4px); }
 .service-disclaimer { margin: 19px 0 0; color: #708094; font-size: 10px; }
 
+.brands-section { background: #fff; }
+.brand-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+.brand-card { min-height: 152px; position: relative; display: flex; flex-direction: column; justify-content: center; padding: 23px 20px; border: 1px solid #dfe7ed; background: linear-gradient(145deg, #fff, #f5f8fa); transition: transform .25s, box-shadow .25s, border-color .25s; }
+.brand-card:hover { transform: translateY(-4px); border-color: #bbcfde; box-shadow: 0 14px 28px rgba(21,50,77,.08); }
+.brand-card-index { position: absolute; top: 15px; right: 16px; color: #9eacb9; font-family: var(--display); font-size: 10px; font-weight: 700; }
+.brand-card-name { color: var(--navy); font-size: 19px; font-weight: 700; }
+.brand-card-caption { margin-top: 7px; color: #718397; font-size: 10px; }
+
 .industries { background: #fff; }
 .industry-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 19px; }
 .industry-card { background: var(--paper); border: 1px solid #e3e9ee; }
@@ -193,6 +201,7 @@ h1, h2, h3 { font-family: var(--display); letter-spacing: 0; }
 .material-body { padding: 18px 18px 20px; }
 .material-body h3 { margin: 0 0 8px; color: var(--navy); font-size: 17px; }
 .material-body p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
+.materials-disclaimer { margin: 20px 0 0; color: #607488; font-size: 11px; line-height: 1.7; }
 
 .quote { background-color: #dce9f1; background-image: linear-gradient(135deg, rgba(244,248,251,.65), transparent 58%); }
 .quote-grid { display: grid; grid-template-columns: .78fr 1.22fr; gap: 64px; align-items: start; }
@@ -225,6 +234,8 @@ h1, h2, h3 { font-family: var(--display); letter-spacing: 0; }
 .form-status { margin: 14px 0 0; padding: 10px 12px; color: #215b43; background: #edf7f1; font-size: 11px; line-height: 1.6; }
 .form-status.status-error { color: #8d3333; background: #fff1f0; }
 .submit-button { width: 100%; margin-top: 17px; }
+.button-whatsapp { color: var(--white); background: #1b684e; }
+.button-whatsapp:hover { background: #15563f; }
 .form-disclaimer { margin: 11px 0 0; color: #7c8c9a; text-align: center; font-size: 9px; line-height: 1.6; }
 
 .contact { background: white; }
@@ -297,6 +308,8 @@ h1, h2, h3 { font-family: var(--display); letter-spacing: 0; }
   .about-art { min-height: 390px; }
   .about-copy h2, .section-heading h2, .contact-copy h2 { font-size: 31px; }
   .about-points { gap: 13px; }
+  .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .brand-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .service-card { padding: 22px 19px; }
   .service-card h3 { font-size: 16px; }
   .industry-image { height: 165px; }
@@ -345,6 +358,9 @@ h1, h2, h3 { font-family: var(--display); letter-spacing: 0; }
   .about-points { margin-top: 22px; }
   .section-heading { margin-bottom: 29px; }
   .service-grid, .industry-grid { grid-template-columns: 1fr; gap: 13px; }
+  .brand-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .brand-card { min-height: 130px; padding: 18px 14px; }
+  .brand-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .service-card { min-height: initial; padding: 22px; }
   .service-card h3 { min-height: 0; font-size: 18px; }
   .industry-image { height: 205px; }

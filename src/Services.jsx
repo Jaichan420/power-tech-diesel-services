@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, CalendarClock, Check, Droplets, Factory, Fuel, Search, Wrench } from 'lucide-react'
+import { ArrowLeft, ArrowRight, CalendarClock, Check, Droplets, Factory, Fuel, Package, PanelTop, Search, Volume2, Wrench } from 'lucide-react'
 import { Footer, Navbar } from './App.jsx'
 import { detailedServices, serviceIndustries } from './config/business.js'
 
-const serviceIcons = { Droplets, CalendarClock, Wrench, Search }
+const serviceIcons = { Droplets, CalendarClock, Wrench, Search, Factory, Volume2, PanelTop, Package }
 const industryIcons = [Fuel, Factory, CalendarClock, Search, Wrench]
 
 function ServiceCard({ service, index }) {
@@ -18,7 +18,7 @@ function ServiceCard({ service, index }) {
       <p className="detail-service-description">{service.description}</p>
       <ul>{service.items.map(item => <li key={item}><Check size={15} />{item}</li>)}</ul>
       <Link className="button button-navy detail-service-cta" to="/" state={{ quotePreset: { service: service.service } }}>
-        Request a Quote <ArrowRight size={16} />
+        Request a Callback <ArrowRight size={16} />
       </Link>
     </article>
   )
@@ -47,7 +47,7 @@ export default function Services() {
             <div className="services-page-heading">
               <p className="eyebrow"><span /> GENERATOR CARE · CHENNAI</p>
               <h1>Generator Services<br /><span>You Can Rely On</span></h1>
-              <p className="services-page-subtitle">Professional generator servicing and maintenance solutions for businesses in Chennai.</p>
+              <p className="services-page-subtitle">Generator maintenance, troubleshooting, repairs, and spare parts support for businesses in Chennai.</p>
               <Link className="button button-navy services-back-button" to="/"><ArrowLeft size={16} /> Back to Home</Link>
             </div>
             <div className="services-page-visual">
@@ -61,8 +61,8 @@ export default function Services() {
           <div className="wrap">
             <div className="section-heading">
               <p className="eyebrow"><span /> SERVICE OPTIONS</p>
-              <h2 id="service-cards-title">Find the right support<br />for your generator.</h2>
-              <p className="section-description">Choose a service to start an enquiry. The scope can be discussed around your generator and facility requirements.</p>
+              <h2 id="service-cards-title">Our Services</h2>
+              <p className="section-description">Choose a service to request a callback. Scope and availability are discussed around your generator and facility requirements.</p>
             </div>
             <div className="detail-service-grid">
               {detailedServices.map((service, index) => <ServiceCard key={service.service} service={service} index={index} />)}
@@ -85,8 +85,8 @@ export default function Services() {
 
         <section className="services-page-cta">
           <div className="wrap services-page-cta-inner">
-            <div><p className="eyebrow"><span /> NEXT STEP</p><h2>Discuss your generator requirements.</h2><p>Share your service needs and business location through the quote form.</p></div>
-            <Link className="button button-navy" to="/#quote">Request a Quote <ArrowRight size={16} /></Link>
+            <div><p className="eyebrow"><span /> NEXT STEP</p><h2>Discuss your generator requirements.</h2><p>Share your service needs and business location through the callback form.</p></div>
+            <Link className="button button-navy" to="/#quote">Request a Callback <ArrowRight size={16} /></Link>
           </div>
         </section>
       </main>
