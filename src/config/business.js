@@ -4,12 +4,14 @@ export const business = {
   serviceArea: 'Chennai',
   address: 'No. 22-A, Reddy Street, Chinna Koladi, Thiruverkadu, Chennai - 600 077',
   phone: '9940543661',
-  whatsapp: '9940543661',
+  whatsapp: '9025328876',
+  whatsappCountryCode: '91',
   email: 'powertechdieselservice@gmail.com',
   foundedYear: 2014,
 }
 
 export const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000').replace(/\/+$/, '')
+export const whatsappInternationalNumber = `${business.whatsappCountryCode}${business.whatsapp.replace(/\D/g, '')}`
 
 export const serviceOptions = [
   'Diesel Generator Servicing',
@@ -235,74 +237,6 @@ export const serviceIndustries = [
     description: 'Coordinate generator service plans suited to critical healthcare environments.',
     image: industries[4].image,
     alt: industries[4].alt,
-  },
-]
-
-export const customerGroups = [
-  {
-    category: 'Petrol Bunks',
-    customers: [
-      {
-        name: 'Customer name placeholder',
-        logo: '',
-        sitePhoto: 'https://images.unsplash.com/photo-1573348722427-f1d6819fdf98?auto=format&fit=crop&w=900&q=82',
-        alt: 'Placeholder site image for petrol bunk customer',
-        showNameOnly: true,
-        permissionNote: 'Published only with permission.',
-      },
-    ],
-  },
-  {
-    category: 'Industries and Factories',
-    customers: [
-      {
-        name: 'Customer name placeholder',
-        logo: '',
-        sitePhoto: 'https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=900&q=82',
-        alt: 'Placeholder site image for industrial customer',
-        showNameOnly: true,
-        permissionNote: 'Published only with permission.',
-      },
-    ],
-  },
-  {
-    category: 'Marriage Halls',
-    customers: [
-      {
-        name: 'Customer name placeholder',
-        logo: '',
-        sitePhoto: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=82',
-        alt: 'Placeholder site image for wedding venue customer',
-        showNameOnly: true,
-        permissionNote: 'Published only with permission.',
-      },
-    ],
-  },
-  {
-    category: 'Schools and Educational Institutions',
-    customers: [
-      {
-        name: 'Customer name placeholder',
-        logo: '',
-        sitePhoto: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=82',
-        alt: 'Placeholder site image for school customer',
-        showNameOnly: true,
-        permissionNote: 'Published only with permission.',
-      },
-    ],
-  },
-  {
-    category: 'Hospitals and Healthcare Facilities',
-    customers: [
-      {
-        name: 'Customer name placeholder',
-        logo: '',
-        sitePhoto: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=900&q=82',
-        alt: 'Placeholder site image for hospital customer',
-        showNameOnly: true,
-        permissionNote: 'Published only with permission.',
-      },
-    ],
   },
 ]
 

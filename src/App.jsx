@@ -24,9 +24,9 @@ import {
   Volume2,
   Wrench,
   X,
-  Zap,
 } from 'lucide-react'
-import { apiBaseUrl, business, businessTypes, customerGroups, engineBrands, generatorBrands, industries, serviceCards, serviceMaterials, serviceOptions } from './config/business.js'
+import { apiBaseUrl, business, businessTypes, engineBrands, generatorBrands, industries, serviceCards, serviceMaterials, serviceOptions, whatsappInternationalNumber } from './config/business.js'
+import { CustomerPreview } from './CustomerDirectory.jsx'
 
 const iconMap = { Droplets, CalendarClock, Wrench, Search, Factory, Volume2, PanelTop, Package }
 const navLinks = [
@@ -34,6 +34,7 @@ const navLinks = [
   ['About Us', 'about'],
   ['Services', 'services'],
   ['Industries We Serve', 'industries'],
+  ['Our Customers', 'customers'],
   ['Our Services', 'work'],
   ['Contact Us', 'contact'],
 ]
@@ -41,6 +42,10 @@ const navLinks = [
 function jumpToQuote(preset = {}) {
   window.dispatchEvent(new CustomEvent('quote-preset', { detail: preset }))
   document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' })
+}
+
+function buildWhatsAppUrl(message) {
+  return `https://wa.me/${whatsappInternationalNumber}?text=${encodeURIComponent(message)}`
 }
 
 function QuoteAction({ children = 'Enquire on WhatsApp', preset, className = '' }) {
@@ -64,7 +69,7 @@ export function Navbar() {
         : []
 
     if (!sectionIds.length) {
-      setActiveSection('')
+      setActiveSection(location.pathname === '/customers' ? 'customers' : '')
       return undefined
     }
 
@@ -87,7 +92,7 @@ export function Navbar() {
     <header className="site-header">
       <nav className="navbar wrap" aria-label="Main navigation">
         <Link className="brand" to={location.pathname === '/' ? '#home' : '/#home'} onClick={() => setMenuOpen(false)} aria-label={`${business.name}, home`}>
-          <span className="brand-symbol" aria-hidden="true"><Zap size={19} strokeWidth={2.5} /></span>
+          <img className="brand-symbol" src="/ptds-logo.png" alt="" aria-hidden="true" />
           <span className="brand-copy"><strong>POWER TECH</strong><small>DIESEL SERVICES</small></span>
         </Link>
         <button className="menu-toggle" type="button" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
@@ -106,6 +111,10 @@ function NavigationLink({ id, label, active, onClick }) {
   const location = useLocation()
   const className = active ? 'nav-link is-active' : 'nav-link'
   const current = active ? (id === 'services' ? 'page' : 'location') : undefined
+
+  if (id === 'customers') {
+    return <Link className={className} to="/customers" aria-current={current} onClick={onClick}>{label}</Link>
+  }
 
   if (id === 'services') {
     return <Link className={className} to="/services" aria-current={current} onClick={onClick}>{label}</Link>
@@ -193,24 +202,42 @@ function Services() {
   )
 }
 
+const engineImageByBrand = {
+  Cummins: '/engines/cummins.webp',
+  'Ashok Leyland': '/engines/ashok-leyland.jpg',
+  Kirloskar: '/engines/kirloskar.webp',
+  Ruston: '/engines/ruston.avif',
+  MWM: '/engines/MWM-TCG-2032.webp',
+}
+
 function BrandsSection() {
   return (
     <section className="brands-section section-pad" id="generator-brands">
       <div className="wrap">
         <SectionHeading
           kicker="ENGINE EXPERIENCE"
-          title={<>Experienced in Servicing Leading<br />Diesel Generator Engines</>}
-          description="We provide maintenance, troubleshooting, repair, and servicing for these generator engine brands. Brand names are listed for service reference only; no manufacturer authorization or affiliation is implied."
+          title="Our Engine Experience"
+          description="Experience Across Leading Diesel Generator Brands"
         />
         <div className="brand-grid">
           {engineBrands.map((brand, index) => (
             <article className="brand-card reveal" key={brand}>
-              <span className="brand-card-index">0{index + 1}</span>
-              <span className="brand-card-name">{brand}</span>
-              <span className="brand-card-caption">Diesel generator engines</span>
+              <div className="brand-card-image">
+                <img
+                  src={engineImageByBrand[brand]}
+                  alt={`${brand} diesel generator engine`}
+                  loading="lazy"
+                />
+              </div>
+              <div className="brand-card-content">
+                <span className="brand-card-index">0{index + 1}</span>
+                <h3 className="brand-card-name">{brand}</h3>
+                <span className="brand-card-caption">Diesel generator engines</span>
+              </div>
             </article>
           ))}
         </div>
+        <p className="brand-section-disclaimer">Brand names are shown for service reference only. No manufacturer authorization or affiliation is implied.</p>
       </div>
     </section>
   )
@@ -352,37 +379,10 @@ function CustomerSection() {
   return (
     <section className="customers section-pad" id="customers">
       <div className="wrap">
-        <SectionHeading kicker="OUR CUSTOMERS" title={<>Our Valued Customers</>} description="Customer names, logos, and site images can be updated in one data file. Placeholder images remain until real, approved customer material is uploaded." />
-        <div className="customer-groups">
-          {customerGroups.map(group => (
-            <div className="customer-group reveal" key={group.category}>
-              <h3>{group.category}</h3>
-              <div className="customer-grid">
-                {group.customers.map(customer => (
-                  <article className="customer-card" key={`${group.category}-${customer.name}`}>
-                    <div className="customer-logo-wrap">
-                      {customer.logo && !customer.showNameOnly ? (
-                        <img src={customer.logo} alt={`${customer.name} logo`} loading="lazy" />
-                      ) : (
-                        <div className="customer-name-only">{customer.name}</div>
-                      )}
-                    </div>
-                    <div className="customer-site-photo">
-                      {customer.sitePhoto ? (
-                        <img src={customer.sitePhoto} alt={customer.alt} loading="lazy" />
-                      ) : (
-                        <span>Site photo placeholder</span>
-                      )}
-                    </div>
-                    <div className="customer-card-meta">
-                      <strong>{customer.name}</strong>
-                      <small>{customer.permissionNote || 'Published only with permission.'}</small>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          ))}
+        <SectionHeading kicker="OUR CUSTOMERS" title={<>Our Valued Customers</>} description="Since 2014, Power Tech Diesel Services has served customers across multiple industries. Organization names are shown only after approval for public display." />
+        <CustomerPreview />
+        <div className="customer-preview-action reveal">
+          <Link className="button button-navy" to="/customers">View All Customers <ArrowRight size={16} /></Link>
         </div>
       </div>
     </section>
@@ -450,20 +450,21 @@ function QuoteForm() {
   }
 
   const whatsappMessage = [
-    `Hello ${business.name}, I would like to request a callback about generator service.`,
+    `Hello ${business.name},`,
+    '',
+    'I would like to request a callback about generator service.',
     '',
     `Customer name: ${form.name || 'Not provided'}`,
-    `Company / business: ${form.company || 'Not provided'}`,
+    ...(form.company.trim() ? [`Business name: ${form.company.trim()}`] : []),
     `Contact number: ${form.phone || 'Not provided'}`,
     `Business type: ${form.businessType || 'Not provided'}`,
-    `Generator brand: ${form.generatorBrand || 'Not sure / not provided'}`,
     `Generator capacity: ${form.capacity ? `${form.capacity} kVA` : 'Not provided'}`,
+    `Generator brand: ${form.generatorBrand || 'Not sure / not provided'}`,
     `Service required: ${form.service || 'Not provided'}`,
     `Business location: ${form.location || 'Not provided'}`,
-    `Additional message: ${form.requirements || 'None provided'}`,
+    ...(form.requirements.trim() ? ['', `Additional message: ${form.requirements.trim()}`] : []),
   ].join('\n')
-  const whatsappNumber = business.whatsapp.replace(/\D/g, '')
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
+  const whatsappUrl = buildWhatsAppUrl(whatsappMessage)
 
   const submit = async (event) => {
     event.preventDefault()
@@ -473,7 +474,7 @@ function QuoteForm() {
     required.forEach(key => {
       if (!form[key].trim()) nextErrors[key] = 'Please complete this field.'
     })
-    if (form.phone.trim() && !/^[+()\d\s-]{7,20}$/.test(form.phone.trim())) {
+    if (form.phone.trim() && (!/^[+()\d\s-]{7,20}$/.test(form.phone.trim()) || (form.phone.match(/\d/g) || []).length < 7)) {
       nextErrors.phone = 'Enter a valid contact number.'
     }
     setErrors(nextErrors)
@@ -498,10 +499,8 @@ function QuoteForm() {
           location: form.location.trim(),
           company: form.company.trim(),
           capacity: form.capacity.trim(),
-          message: [
-            form.generatorBrand && `Generator brand: ${form.generatorBrand}`,
-            form.requirements.trim() && `Customer message: ${form.requirements.trim()}`,
-          ].filter(Boolean).join('\n'),
+          generatorBrand: form.generatorBrand,
+          message: form.requirements.trim(),
         }),
       })
       let result
@@ -513,7 +512,7 @@ function QuoteForm() {
       if (!response.ok || result?.ok !== true) {
         throw new Error(result?.message || `The server rejected the enquiry (HTTP ${response.status}).`)
       }
-      setStatus('Your callback request has been saved. Power Tech Diesel Services may contact you about your enquiry using the details provided.')
+      setStatus('Enquiry submitted successfully. Power Tech Diesel Services may contact you about your request.')
       setStatusType('success')
     } catch (error) {
       const reason = error instanceof Error ? error.message : 'An unexpected error occurred.'
@@ -531,15 +530,15 @@ function QuoteForm() {
         <div className="quote-form-wrap reveal"><form className="quote-form" onSubmit={submit} noValidate>
           <div className="form-heading"><div><span className="form-kicker">SERVICE ENQUIRY</span><h3>Request a Callback</h3></div><span className="form-required">* Required</span></div>
           <div className="form-grid">
-            <Field label="Customer name" name="name" value={form.name} onChange={update} error={errors.name} required placeholder="Your name" />
-            <Field label="Company or business name" name="company" value={form.company} onChange={update} placeholder="Business name" />
-            <Field label="WhatsApp / contact number" name="phone" type="tel" value={form.phone} onChange={update} error={errors.phone} required placeholder="Your contact number" />
+            <Field label="Customer name" name="name" value={form.name} onChange={update} error={errors.name} required maxLength="100" placeholder="Your name" />
+            <Field label="Company or business name" name="company" value={form.company} onChange={update} maxLength="150" placeholder="Business name" />
+            <Field label="WhatsApp / contact number" name="phone" type="tel" value={form.phone} onChange={update} error={errors.phone} required maxLength="20" placeholder="Your contact number" />
             <SelectField label="Business type" name="businessType" value={form.businessType} onChange={update} error={errors.businessType} required options={businessTypes} />
-            <Field label="Generator capacity (kVA)" name="capacity" type="number" min="1" value={form.capacity} onChange={update} placeholder="e.g. 125" />
+            <Field label="Generator capacity (kVA)" name="capacity" type="number" min="1" value={form.capacity} onChange={update} maxLength="50" placeholder="e.g. 125" />
             <SelectField label="Generator brand (optional)" name="generatorBrand" value={form.generatorBrand} onChange={update} options={generatorBrands} />
             <SelectField label="Service required" name="service" value={form.service} onChange={update} error={errors.service} required options={serviceOptions} />
-            <Field label="Business location" name="location" value={form.location} onChange={update} error={errors.location} required placeholder="Area / locality in Chennai" />
-            <label className="field field-wide"><span>Optional message</span><textarea name="requirements" value={form.requirements} onChange={update} rows="3" placeholder="Anything else we should know?" /></label>
+            <Field label="Business location" name="location" value={form.location} onChange={update} error={errors.location} required maxLength="150" placeholder="Area / locality in Chennai" />
+            <label className="field field-wide"><span>Optional message</span><textarea name="requirements" value={form.requirements} onChange={update} maxLength="2000" rows="3" placeholder="Anything else we should know?" /></label>
           </div>
           {status && <p className={`form-status${statusType === 'error' ? ' status-error' : ''}`} role={statusType === 'error' ? 'alert' : 'status'} aria-live={statusType === 'error' ? 'assertive' : 'polite'}>{status}</p>}
           <button className="button button-navy submit-button" type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>{isSubmitting ? 'Submitting Request…' : 'Request a Callback'} <MessageCircle size={17} /></button>
@@ -583,7 +582,7 @@ export function Footer() {
     <footer className="footer">
       <div className="wrap footer-main">
         <div className="footer-identity">
-          <Link className="brand footer-brand" to="/#home"><span className="brand-symbol"><Zap size={19} strokeWidth={2.5} /></span><span className="brand-copy"><strong>POWER TECH</strong><small>DIESEL SERVICES</small></span></Link>
+          <Link className="brand footer-brand" to="/#home" aria-label={`${business.name}, home`}><img className="brand-symbol" src="/ptds-logo.png" alt="" aria-hidden="true" /><span className="brand-copy"><strong>POWER TECH</strong><small>DIESEL SERVICES</small></span></Link>
           <p>Generator oil servicing, planned maintenance, and AMC solutions in Chennai.</p>
           <span className="footer-contact">{business.phone || 'Phone: add in business configuration'}</span>
           <span className="footer-contact">{business.whatsapp || 'WhatsApp: add in business configuration'}</span>
@@ -610,10 +609,9 @@ function FinalCallToAction() {
   )
 }
 
-function WhatsAppButton() {
-  const whatsappNumber = business.whatsapp.replace(/\D/g, '')
-  const message = `Hello ${business.name}, I would like to enquire about generator service. Please contact me.`
-  const href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`
+export function WhatsAppButton() {
+  const message = `Hello ${business.name},\n\nI would like to enquire about generator service. Please contact me.\n\nThank you.`
+  const href = buildWhatsAppUrl(message)
 
   return (
     <a className="floating-whatsapp" href={href} target="_blank" rel="noopener noreferrer">

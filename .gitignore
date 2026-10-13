@@ -9,3 +9,7 @@ backend/instance/
 __pycache__/
 .venv/
 venv/
+.env
+.env.*
+!.env.example
+PTDS customer list.pdf
