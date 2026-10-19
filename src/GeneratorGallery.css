@@ -1,0 +1,38 @@
+.generator-gallery{background:var(--surface);padding-block:clamp(64px,7vw,100px)}
+.gallery-heading{display:flex;align-items:end;justify-content:space-between;gap:32px;margin-bottom:38px}
+.gallery-heading h2{max-width:none}.gallery-heading p{margin-top:22px;max-width:58ch;color:var(--muted)}
+.gallery-heading>.text-link{flex-shrink:0}
+.gallery-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.gallery-filters button{border:0;padding:13px 20px;min-height:48px;font-size:16px;background:var(--paper);color:var(--navy);transition:background var(--fast),color var(--fast)}
+.gallery-filters button[aria-pressed="true"]{background:var(--navy);color:var(--paper)}
+.gallery-filters button:hover{background:var(--navy);color:var(--paper)}
+.gallery-count{font-size:14px;margin-bottom:24px;color:var(--muted)}
+.generator-photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 24px}
+.generator-photo{margin:0;min-width:0}
+.gallery-photo-button{display:block;position:relative;width:100%;padding:0;border:0;background:var(--navy);overflow:hidden;aspect-ratio:4/3}
+.gallery-photo-button img{width:100%;height:100%;object-fit:cover;transition:transform 450ms var(--ease)}
+.gallery-photo-button:hover img{transform:scale(1.045)}
+.gallery-expand{position:absolute;bottom:14px;right:14px;display:grid;place-items:center;min-width:44px;min-height:44px;background:var(--paper);color:var(--navy);transition:transform var(--fast)}
+.gallery-photo-button:hover .gallery-expand{transform:translateY(-3px)}
+.generator-photo figcaption{font-size:17px;line-height:1.45;padding-top:16px;color:var(--ink)}
+.gallery-load-more{display:flex;justify-content:center;margin-top:44px}
+.service-videos{background:var(--paper)}
+.service-video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 24px}
+.service-video{min-width:0;margin:0}
+.service-video video{display:block;width:100%;aspect-ratio:16/10;background:var(--navy);object-fit:contain}
+.service-video figcaption{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:16px;font-size:17px;line-height:1.5}
+.service-video figcaption a{display:inline-flex;align-items:center;gap:8px;font-size:14px;min-height:44px;text-decoration:underline;text-underline-offset:4px}
+.gallery-lightbox{position:fixed;inset:0;width:100%;max-width:none;height:100dvh;max-height:none;padding:20px 32px;margin:0;border:0;background:var(--navy);color:var(--paper);overscroll-behavior:contain}
+.gallery-lightbox::backdrop{background:var(--navy)}
+.gallery-lightbox-layout{height:100%;display:flex;flex-direction:column;gap:16px}
+.gallery-lightbox-top{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-shrink:0;font-size:16px;font-variant-numeric:tabular-nums}
+.gallery-lightbox button{border:0;border-radius:0;min-width:48px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:12px;background:var(--paper);color:var(--navy);font-size:16px;flex-shrink:0;transition:background var(--fast),transform var(--fast)}
+.gallery-lightbox button:hover{background:var(--gold)}.gallery-lightbox button:active{transform:scale(.97)}
+.gallery-full-image{min-height:0;flex:1;display:flex;justify-content:center;align-items:center;touch-action:pan-y}
+.gallery-full-image img{width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
+.gallery-lightbox-bottom{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-shrink:0}
+.gallery-lightbox-bottom p{text-align:center;font-size:17px;line-height:1.5}
+@media(max-width:900px){.gallery-heading{align-items:start;flex-direction:column;gap:20px}.generator-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.gallery-heading h2{font-size:34px}.gallery-filters{gap:8px}.gallery-filters button{font-size:14px;padding:12px 14px}.generator-photo-grid{grid-template-columns:1fr;gap:28px}.service-video-grid{grid-template-columns:1fr;gap:32px}.gallery-lightbox{padding:16px}.gallery-lightbox-bottom{gap:12px;flex-wrap:wrap}.gallery-lightbox-bottom p{order:-1;flex-basis:100%;font-size:16px}.gallery-lightbox-bottom button{min-width:112px}.gallery-expand{bottom:12px;right:12px}}
+@media(prefers-reduced-motion:reduce){.gallery-photo-button img,.gallery-expand,.gallery-filters button,.gallery-lightbox button{transition:none}.gallery-photo-button:hover img,.gallery-photo-button:hover .gallery-expand{transform:none}}
+

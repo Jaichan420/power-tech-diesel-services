@@ -1,0 +1,52 @@
+{
+  "Petrol Bunks": {
+    "src": "/images/sectors/petrol-bunks-960.webp",
+    "small": "/images/sectors/petrol-bunks-480.webp",
+    "alt": "An Indian Oil petrol filling station in Nalgonda district, Telangana",
+    "title": "Petrol filling station, Indian Oil.JPG",
+    "author": "Nikhilb239",
+    "source": "https://commons.wikimedia.org/wiki/File:Petrol_filling_station%2C_Indian_Oil.JPG",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "Industries & Factories": {
+    "src": "/images/sectors/factories-960.webp",
+    "small": "/images/sectors/factories-480.webp",
+    "alt": "Production machinery inside a die-casting factory in Urse, Maharashtra",
+    "title": "High Pressure Die Casting Bay-Urse Plant.jpg",
+    "author": "Mohsina Faiz",
+    "source": "https://commons.wikimedia.org/wiki/File:High_Pressure_Die_Casting_Bay-Urse_Plant.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "Marriage Halls": {
+    "src": "/images/sectors/marriage-halls-960.webp",
+    "small": "/images/sectors/marriage-halls-480.webp",
+    "alt": "Entrance to Vruksha wedding hall in Bengaluru",
+    "title": "Vruksha wedding hall, Palace grounds, Bangalore (2025) 01.jpg",
+    "author": "Gpkp",
+    "source": "https://commons.wikimedia.org/wiki/File:Vruksha_wedding_hall%2C_Palace_grounds%2C_Bangalore_%282025%29_01.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "Schools & Colleges": {
+    "src": "/images/sectors/education-960.webp",
+    "small": "/images/sectors/education-480.webp",
+    "alt": "The main administrative building on the IIT Roorkee campus",
+    "title": "Main(Administrative)Building IIT-Roorkee.JPG",
+    "author": "Sidbij",
+    "source": "https://commons.wikimedia.org/wiki/File:Main%28Administrative%29Building_IIT-Roorkee.JPG",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "Hospitals & Healthcare": {
+    "src": "/images/sectors/healthcare-960.webp",
+    "small": "/images/sectors/healthcare-480.webp",
+    "alt": "Exterior of Apollo Proton Cancer Centre in Chennai",
+    "title": "Apollo Proton Cancer Centre, Chennai.jpg",
+    "author": "HemanthOS",
+    "source": "https://commons.wikimedia.org/wiki/File:Apollo_Proton_Cancer_Centre%2C_Chennai.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  }
+}

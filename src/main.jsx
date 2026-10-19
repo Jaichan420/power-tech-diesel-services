@@ -5,6 +5,7 @@ import App from './App.jsx'
 import Services from './Services.jsx'
 import './App.css'
 import './Services.css'
+import Customers from './Customers.jsx'
 
 function ScrollToHash() {
   const { pathname, hash } = useLocation()
@@ -44,6 +45,7 @@ createRoot(document.getElementById('root')).render(
       <PageMetadata />
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/customers" element={<Customers />} />
         <Route path="/services" element={<Services />} />
         <Route path="*" element={<App />} />
       </Routes>

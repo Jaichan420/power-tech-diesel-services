@@ -1,0 +1,24 @@
+/* Section-only treatment; existing industry content and enquiry actions are retained. */
+.industries .industry-feature{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;min-height:clamp(440px,40vw,580px);background:var(--navy);color:var(--paper);transform:none}
+.industry-feature-media{position:absolute;inset:0;z-index:-2;display:block}
+.industry-feature-media img{width:100%;height:100%;object-fit:cover;object-position:60% 54%}
+.industry-feature-overlay{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(8,27,56,.96) 0%,rgba(8,27,56,.88) 30%,rgba(8,27,56,.43) 57%,rgba(8,27,56,.12) 100%)} /* taste-skill-ignore: User-requested dark photographic overlay for readable text. */
+.industry-feature-copy{padding:clamp(32px,4.5vw,70px);width:54%}
+.industry-feature-copy .section-heading{margin:0;max-width:none}
+.industry-feature-copy h2{font-size:clamp(40px,4.5vw,64px);line-height:1.04;letter-spacing:-.03em;max-width:14ch;color:var(--paper)}
+.industry-feature-copy .section-description{font-size:18px;line-height:1.65;max-width:34ch;color:var(--paper);margin-top:26px}
+.industries .industry-photo-credit{font-size:12px;line-height:1.6;color:var(--muted);max-width:110ch;margin:16px 0 48px}
+.industry-photo-credit a{text-decoration:underline;text-underline-offset:3px}.industry-photo-credit a:hover{color:var(--blue)}
+@media(prefers-reduced-motion:no-preference){
+  .industries .industry-feature.reveal.is-visible{animation:none}
+  .industry-feature.is-visible .industry-feature-copy h2{animation:industry-copy-enter 800ms cubic-bezier(.22,1,.36,1) both}
+  .industry-feature.is-visible .section-description{animation:industry-copy-enter 900ms 90ms cubic-bezier(.22,1,.36,1) both}
+  .industry-feature.is-visible .industry-feature-media img{animation:industry-image-settle 1500ms cubic-bezier(.22,1,.36,1) both}
+  @media(hover:hover){.industry-feature.is-visible:hover .industry-feature-media{transform:scale(1.025);transition:transform 1800ms cubic-bezier(.22,1,.36,1)}.industry-feature-media{transition:transform 1200ms cubic-bezier(.22,1,.36,1)}}
+}
+@keyframes industry-copy-enter{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes industry-image-settle{from{transform:scale(1.055)}to{transform:scale(1)}}
+@media(max-width:1000px){.industry-feature-copy{width:62%;padding:38px}.industry-feature-copy h2{font-size:44px}.industry-feature-copy .section-description{font-size:17px;max-width:30ch}}
+@media(max-width:600px){.industries .industry-feature{min-height:570px;align-items:flex-start}.industry-feature-media{inset:auto 0 0;height:58%}.industry-feature-media img{object-position:48% 50%}.industry-feature-copy{width:100%;padding:32px 24px}.industry-feature-copy h2{font-size:40px;max-width:14ch}.industry-feature-copy .section-description{font-size:16px;max-width:34ch;margin-top:22px}.industry-feature-overlay{background:linear-gradient(180deg,var(--navy) 0%,var(--navy) 33%,rgba(8,27,56,.91) 44%,rgba(8,27,56,.24) 69%,rgba(8,27,56,.12) 100%)} /* taste-skill-ignore: User-requested responsive dark photograph scrim. */
+.industries .industry-photo-credit{margin-bottom:36px}}
+@media(prefers-reduced-motion:reduce){.industry-feature-media,.industry-feature-media img,.industry-feature-copy h2,.industry-feature-copy .section-description{animation:none!important;transition:none!important;transform:none!important}}
